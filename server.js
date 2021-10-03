@@ -24,6 +24,31 @@ app.use('/api/user/shippingAddress', shippingAddressRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to the Technology ECommerce API',
+    userRoutes: [
+      '/api/users/login',
+      '/api/users/register',
+      '/api/users/profile',
+      '/api/users/profile/defaultShipping',
+      '/api/users/profile/accountDetails',
+    ],
+    productRoutes: [
+      '/api/products/',
+      '/api/products/:id',
+      '/api/products/:id/review',
+      '/api/products/create',
+      '/api/products/:id/edit',
+    ],
+    orderRoutes: ['/api/orders/create'],
+    shippingAddressRoutes: [
+      '/api/user/shippingAddress/delete/:id',
+      '/api/user/shippingAddress/create',
+    ],
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
