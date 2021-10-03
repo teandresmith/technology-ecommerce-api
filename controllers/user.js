@@ -54,6 +54,25 @@ export const updateUserDefaultShippingAddress = async (req, res) => {
         country: updatedDefaultShipping.country,
         postalCode: updatedDefaultShipping.postalCode,
       })
+    } else {
+      const newShippingAddress = await ShippingAddress.create({
+        street: street,
+        city: city,
+        state: state,
+        country: country,
+        postalCode: postalCode,
+        user: user._id,
+      })
+      user.defaultShippingAddress = newShippingAddress._id
+      await user.save()
+      res.json({
+        _id: newShippingAddress._id,
+        street: newShippingAddress.street,
+        city: newShippingAddress.city,
+        state: newShippingAddress.state,
+        country: newShippingAddress.country,
+        postalCode: newShippingAddress.postalCode,
+      })
     }
   } catch (error) {
     res
